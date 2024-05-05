@@ -49,7 +49,8 @@ def bot(request):
 def reply(request):
       whatsapp_number = request.POST.get('From').split("whatsapp:")[-1]
       body = request.POST.get('Body', '')
-      gemini_get = model.generate_content(body)
+      msg = f"{body} \nIn less than 1600 words"
+      gemini_get = model.generate_content(msg)
       gemini_response = gemini_get.text
       send_message(whatsapp_number, gemini_response)
       return HttpResponse('')
