@@ -17,12 +17,21 @@ from django.http import HttpResponseBadRequest, JsonResponse
 from email.mime.multipart import MIMEMultipart
 # Create your views here.
 import datetime,time,requests
+from .models import Conversation
+from .utils import send_message, logger
+import os
+
+import google.generativeai as genai
 
 from itertools import zip_longest
 
-TWILIO_ACCOUNT_SID="AC5655f15cadd5bcd1aa75757289c26c32"
-TWILIO_AUTH_TOKEN="fbac6ab971f88272846ac4943c885267"
-TWILIO_NUMBER="+12673991196"
+
+API_KEY = "AIzaSyAkJik7N15J_knNLcpt7yEZbmCXjJN_SY4"
+# Initialize the GenerativeAI client
+genai.configure(api_key = API_KEY)
+
+# Get the Gemini Pro model
+model = model = genai.GenerativeModel('gemini-pro')
 
 def bot(request):
     if request.method == 'POST':
@@ -30,5 +39,11 @@ def bot(request):
     return HttpResponse("Hello")
 
 
+@csrf_exempt
 def reply(request):
-      pass
+      whatsapp_number = request.POST.get('From').split("whatsapp:")[-1]
+      body = request.POST.get('Body', '')
+      gemini_get = model.generate_content(body)
+      gemini_response = gemini_get.text
+      send_message(whatsapp_number, gemini_response)
+      return HttpResponse('')

@@ -24,5 +24,5 @@ from django.conf.urls import handler500,handler404
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.bot,name="bot"),
-    path('message/', views.reply,name="bot"),
+    path('message/', views.reply,name="botreply"),
 ]
