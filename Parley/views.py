@@ -32,6 +32,12 @@ genai.configure(api_key = API_KEY)
 
 # Get the Gemini Pro model
 model = model = genai.GenerativeModel('gemini-pro')
+genai.types.GenerationConfig(
+        # Only one candidate for now.
+        candidate_count=1,
+        stop_sequences=['x'],
+        max_output_tokens=20,
+        temperature=1.0)
 
 def bot(request):
     if request.method == 'POST':

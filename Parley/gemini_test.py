@@ -9,7 +9,13 @@ API_KEY = "AIzaSyAkJik7N15J_knNLcpt7yEZbmCXjJN_SY4"
 genai.configure(api_key = API_KEY)
 
 # Get the Gemini Pro model
-model = model = genai.GenerativeModel('gemini-pro')
+model = genai.GenerativeModel('gemini-pro')
+genai.types.GenerationConfig(
+        # Only one candidate for now.
+        candidate_count=1,
+        stop_sequences=['x'],
+        max_output_tokens=10,
+        temperature=1.0)
 
 def chat(user_input):
     """Handles user input and generates responses using Gemini."""
