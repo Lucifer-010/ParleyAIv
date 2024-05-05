@@ -36,7 +36,7 @@ genai.types.GenerationConfig(
         # Only one candidate for now.
         candidate_count=1,
         stop_sequences=['x'],
-        max_output_tokens=5,
+        max_output_tokens=20,
         temperature=1.0)
 
 def bot(request):
