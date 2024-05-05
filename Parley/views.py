@@ -28,3 +28,7 @@ def bot(request):
     if request.method == 'POST':
             incoming_msg = request.POST.get('number')
     return HttpResponse("Hello")
+
+
+def reply(request):
+      pass
